@@ -10,29 +10,34 @@ func FileToFileHandler(inputFile, outputFile string) error {
 
 	inputFilePath, InputErr := os.Open(inputFile)
 	if InputErr != nil {
-		fmt.Errorf("There was an error opening the input file: %w", InputErr)
+		return fmt.Errorf("there was an error opening the input file: %w", InputErr)
 	}
 	defer inputFilePath.Close()
+
 	outputFilePath, OutputErr := os.Create(outputFile)
 	if OutputErr != nil {
-		fmt.Errorf("There was an error creating the output file: %w", OutputErr)
+		return fmt.Errorf("there was an error creating the output file: %w", OutputErr)
 	}
 	defer outputFilePath.Close()
 
-	bufferedInput_reader := bufio.NewScanner(inputFilePath)
-	bufferedOutput_writer := bufio.NewWriter(outputFilePath)
+	bufferedInputReader := bufio.NewScanner(inputFilePath)
+	bufferedOutputWriter := bufio.NewWriter(outputFilePath)
 
-	for bufferedInput_reader.Scan() {
-		if nonEofErr := bufferedInput_reader.Err(); nonEofErr != nil {
-			fmt.Errorf("An error was encounter while reading text: %w", nonEofErr)
-		}
-
-		line := bufferedInput_reader.Text()
+	for bufferedInputReader.Scan() {
+		line := bufferedInputReader.Text()
 		transformedText := MyLogic(line)
-		bufferedOutput_writer.WriteString(transformedText + "\n")
+		if _, err := bufferedOutputWriter.WriteString(transformedText + "\n"); err != nil {
+			return fmt.Errorf("error writing to output file: %w", err)
+		}
 	}
-	
-	defer bufferedOutput_writer.Flush()
+
+	if nonEofErr := bufferedInputReader.Err(); nonEofErr != nil {
+		return fmt.Errorf("an error was encountered while reading text: %w", nonEofErr)
+	}
+
+	if err := bufferedOutputWriter.Flush(); err != nil {
+		return fmt.Errorf("error flushing output buffer: %w", err)
+	}
 
 	return nil
 }
