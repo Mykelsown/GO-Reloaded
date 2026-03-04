@@ -1,7 +1,7 @@
 package main
 
 import (
-	"bufio"
+	"GoReloaded"
 	"fmt"
 	"os"
 )
@@ -12,12 +12,9 @@ func main() {
 		return
 	}
 
-	input, _ := os.Open(os.Args[1])
-	defer input.Close()
-	output, _ := os.Create(os.Args[2])
-	defer output.Close()
-	mainInKey := bufio.NewScanner(input)
-	// mainOut := bufio.NewWriter(output)
-	mainIn := mainInKey.Text()
-	fmt.Printf("%v", mainIn)
+	inputPath := os.Args[1]
+	outputPath := os.Args[2]
+
+	fmt.Println(GoReloaded.FileToFileHandler(inputPath, outputPath))
+
 }
