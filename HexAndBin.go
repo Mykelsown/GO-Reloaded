@@ -5,9 +5,8 @@ import (
 	"strconv"
 )
 
-var re = regexp.MustCompile(`([0-9A-Fa-f]+)\s*\((hex|bin)\)`)
-
 func HexAndBin(s string) string {
+	re := regexp.MustCompile(`([0-9A-Fa-f]+)\s*\((hex|bin)\)`)
 
 	result := re.ReplaceAllStringFunc(s, func(match string) string {
 
