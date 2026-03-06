@@ -1,4 +1,4 @@
-package GoReloaded
+package function
 
 import "regexp"
 

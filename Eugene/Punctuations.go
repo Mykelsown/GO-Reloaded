@@ -1,6 +1,9 @@
-package GoReloaded
+package function
 
-import "regexp"
+import (
+	"regexp"
+	"strings"
+)
 
 func PunctuationsHandler(s string) string {
 
@@ -23,5 +26,13 @@ func PunctuationsHandler(s string) string {
 	reQuoteEnd := regexp.MustCompile(`\s+'`)
 	s = reQuoteEnd.ReplaceAllString(s, "'")
 
-	return s
+	var finRes strings.Builder
+	for i, val := range s {
+		if i == 0 && val == ' ' || i == len(s)-1 && val == ' ' {
+			continue
+		}
+		finRes.WriteString(string(val))
+	}
+
+	return finRes.String()
 }

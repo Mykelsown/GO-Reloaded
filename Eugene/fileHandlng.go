@@ -1,4 +1,4 @@
-package GoReloaded
+package function
 
 import (
 	"bufio"
@@ -24,9 +24,9 @@ func FileToFileHandler(inputFile, outputFile string) error {
 	bufferedOutputWriter := bufio.NewWriter(outputFilePath)
 
 	for bufferedInputReader.Scan() {
-		line := bufferedInputReader.Text()
-		transformedText := MyLogic(line)
-		if _, err := bufferedOutputWriter.WriteString(transformedText + "\n"); err != nil {
+		unrefinedText := bufferedInputReader.Text()
+		refinedText := MyLogic(unrefinedText)
+		if _, err := bufferedOutputWriter.WriteString(refinedText + "\n"); err != nil {
 			return fmt.Errorf("error writing to output file: %w", err)
 		}
 	}

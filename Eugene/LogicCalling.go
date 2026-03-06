@@ -1,4 +1,4 @@
-package GoReloaded
+package function
 
 func MyLogic(text string) string {
 	final := HexAndBin(text)
