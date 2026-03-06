@@ -27,11 +27,11 @@ func PunctuationsHandler(s string) string {
 	s = reQuoteEnd.ReplaceAllString(s, "'")
 
 	var finRes strings.Builder
-	for i, val := range s {
-		if i == 0 && val == ' ' || i == len(s)-1 && val == ' ' {
+	for i := 0; i < len(s)-1; i++ {
+		if i == 0 && s[i] == ' ' || i == len(s)-i && s[len(s)-i] == ' '  {
 			continue
 		}
-		finRes.WriteString(string(val))
+		finRes.WriteString(string())
 	}
 
 	return finRes.String()
