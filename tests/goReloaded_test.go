@@ -1,7 +1,7 @@
 package tests
 
 import (
-	function "GoReloaded/Eugene"
+	function "GoReloaded/functions"
 	"testing"
 )
 
@@ -61,8 +61,8 @@ func TestLowUpAndCap(t *testing.T) {
 			"This is SO EXCITING",
 		},
 		{
-			"Ready, set, go (up) !", 
-			"Ready, set, GO !",
+			"Ready, set, go (cap, 2) !", 
+			"Ready, Set, Go !",
 		},
 	}
 
@@ -81,7 +81,7 @@ func TestPunctuations(t *testing.T) {
 		expected string
 	}{
 		{
-			"This is so EXCITING .  ...yes it is . ",
+			"  This is so EXCITING .  ...yes it is .   ",
 			"This is so EXCITING.... yes it is.",
 		},
 		{
